@@ -1,43 +1,43 @@
-#SM Challenge
+# SM Challenge
 
 The application should provide an abstraction between two different email service providers. If one of the service provider goes down, the service can quickly failover to a different provider without affecting the service user. This example integrates with **Mailgun** and **SendGrid**.
 
 This application requires **Java 8** and **Maven** to compile; and **Java 8** and **RabbitMQ 3** to run. The following section is a quick guide to install the requirements in MacOS and Amazon Linux.
 
-##Requirements
+## Requirements
 
-###MacOS
+### MacOS
 
-####Java 8
+#### Java 8
 ```
 brew tap caskroom/versions
 brew cask install java8
 ```
 
-####Maven
+#### Maven
 ```
 brew install maven
 ```
 
-####RabbitMQ 3
+#### RabbitMQ 3
 ```
 brew install rabbitmq
 brew services start rabbitmq
 ```
 
-###Amazon Linux
+### Amazon Linux
 
-###Java 8
+### Java 8
 ```
 sudo yum install java-1.8.0-openjdk.x86_64
 ```
 
-####Maven
+#### Maven
 ```
 sudo yum install maven
 ```
 
-####RabbitMQ 3
+#### RabbitMQ 3
 
 Erlang Dependecy:
 
@@ -58,7 +58,7 @@ sudo chkconfig rabbitmq-server on
 sudo service rabbitmq-server start
 ```
 
-##Compiling
+## Compiling
 Make sure to define the properties in *application.yml* under `application`.
 
 ```
@@ -69,13 +69,13 @@ vi src/main/resources/application.yml
 mvn clean install
 ```
 
-##Running
+## Running
 
 ```
 java -jar sm-challenge.jar
 ```
 
-##Testing
+## Testing
 FROM is required, TO list requires at least one entry. CC and BCC lists are optional. SUBJECT and MESSAGE are also optional. Email NAME is optional.
 
 ```
