@@ -1,0 +1,19 @@
+application:
+  email-domain: test.com
+  send-grid:
+    endpoint: xxx
+    token: xxx
+  mailgun:
+    endpoint: xxx
+    username: xxx
+    password: xxx
+spring:
+  rabbitmq:
+    username: guest
+    password: guest
+    host: 127.0.0.1
+    port: 5672
+logging:
+  level:
+    com.netflix.hystrix: DEBUG
+    org.apache.http: DEBUG

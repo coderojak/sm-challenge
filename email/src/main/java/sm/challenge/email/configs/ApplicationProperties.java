@@ -1,5 +1,6 @@
 package sm.challenge.email.configs;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,10 +18,10 @@ public class ApplicationProperties {
     @Data
     public static class SendGrid {
 
-        @NotNull
+        @NotBlank
         private String endpoint;
 
-        @NotNull
+        @NotBlank
         private String token;
 
     }
@@ -28,18 +29,18 @@ public class ApplicationProperties {
     @Data
     public static class Mailgun {
 
-        @NotNull
+        @NotBlank
         private String endpoint;
 
-        @NotNull
+        @NotBlank
         private String username;
 
-        @NotNull
+        @NotBlank
         private String password;
 
     }
 
-    @NotNull
+    @NotBlank
     private String emailDomain;
 
     @NotNull

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -29,15 +30,12 @@ public class EmailValidator {
     public void validateEmailMessages(List<EmailMessage> emailMessages) {
         Assert.notEmpty(emailMessages, "Root list cannot be empty");
         for (EmailMessage emailMessage : emailMessages) {
-
-            Assert.notNull(emailMessage, "Root item cannot be null");
-
             assertEmail(emailMessage.getFrom(), "from");
             Assert.isTrue(emailMessage.getFrom().getEmail().endsWith(properties.getEmailDomain()),
                     "'from.email' must be of domain: " + properties.getEmailDomain());
-            Assert.notNull(emailMessage.getFrom(), "'from' cannot be null.");
+            Assert.notNull(emailMessage.getFrom(), "'from' cannot be null");
 
-            Assert.notEmpty(emailMessage.getTo(), "'to' cannot be empty.");
+            Assert.notEmpty(emailMessage.getTo(), "'to' cannot be empty");
             for (Email to : emailMessage.getTo()) {
                 assertEmail(to, "to");
             }
@@ -58,6 +56,9 @@ public class EmailValidator {
                 }
             }
 
+            Assert.isTrue(
+                    StringUtils.hasText(emailMessage.getSubject()) || StringUtils.hasText(emailMessage.getMessage()),
+                    "'subject' and 'message' cannot both be blank");
             emailMessage.setSubject(Optional.ofNullable(emailMessage.getSubject()).orElse(""));
             emailMessage.setMessage(Optional.ofNullable(emailMessage.getMessage()).orElse(""));
         }

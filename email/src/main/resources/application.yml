@@ -16,4 +16,4 @@ spring:
 logging:
   level:
     com.netflix.hystrix: INFO
-    org.apache.http: DEBUG
+    org.apache.http: INFO

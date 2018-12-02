@@ -3,6 +3,8 @@ package sm.challenge.email.controllers;
 import java.util.List;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,13 +30,13 @@ public class EmailController {
     @NonNull
     private final EmailValidator emailMessageValidator;
 
-    @PostMapping("/messages")
-    public GenericResponse messages(@RequestBody List<EmailMessage> messages) {
+    @PostMapping(value = "/messages", consumes = Versions.V1)
+    public ResponseEntity<GenericResponse> messages(@RequestBody List<EmailMessage> messages) {
         emailMessageValidator.validateEmailMessages(messages);
         for (EmailMessage message : messages) {
             rabbitTemplate.convertAndSend(AmqpConfig.EMAIL_EXCHANGE, AmqpConfig.EMAIL_ROUTING_KEY, message);
         }
-        return new GenericResponse(Status.ENQUEUED, "Messages enqueued");
+        return new ResponseEntity<>(new GenericResponse(Status.ENQUEUED, "Messages enqueued"), HttpStatus.ACCEPTED);
     }
 
 }
